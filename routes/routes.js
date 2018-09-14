@@ -9,4 +9,5 @@ module.exports = function(app) {
     app.route('/auth/sign_in')
         .post(userHandler.signIn)
 
+    app.route('/')
 };
