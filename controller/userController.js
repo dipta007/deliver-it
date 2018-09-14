@@ -1,4 +1,4 @@
-'use trict';
+'use strict';
 
 var mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
