@@ -7,6 +7,7 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   jsonwebtoken = require("jsonwebtoken"),
   User = require('./models/userModel');
+  //checking commit
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://192.168.10.18/testDB');
