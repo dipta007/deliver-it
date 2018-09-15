@@ -6,31 +6,31 @@ var mongoose = require('mongoose'),
 
 
 var DeliverableSchema = new Schema({
-    pickup_location:{
+    pickupLocation:{
         type: String,
         trim: true,
         required: true
     },
-    delivery_location:{
+    deliveryLocation:{
         type: String,
         trim: true,
         required: true
     },
-    pickup_coordinate:{
+    pickupCoordinate:{
         type: String,
         trim: true,
         required: true
     },
-    delivery_coordinate:{
+    deliveryCoordinate:{
         type: String,
         trim: true,
         required: true
     },
-    pickup_before: {
+    pickupBefore: {
         type: Date,
         default: Date.now
     },
-    deliver_before: {
+    deliverBefore: {
         type: Date,
         default: Date.now
     },
@@ -54,11 +54,11 @@ var DeliverableSchema = new Schema({
         trim: true,
         lowercase: true
     },
-    sender_id: {
+    senderId: {
         type: String,
         required: true
     },
-    deliverer_id: {
+    delivererId: {
         type: String,
         default: -1
     },

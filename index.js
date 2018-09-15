@@ -2,15 +2,17 @@
 
 var express = require('express'),
   app = express(),
-  port = process.env.PORT || 3000,
+  port = process.env.PORT || 3500,
   mongoose = require('mongoose'),
   bodyParser = require('body-parser'),
   jsonwebtoken = require("jsonwebtoken"),
-  User = require('./models/userModel');
+  User = require('./models/userModel'),
+  Deliverable = require('./models/deliverableModel'),
+  Delivery = require('./models/deliveryModel');
   //checking commit
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://192.168.10.18/testDB');
+mongoose.connect('mongodb://localhost/testDB', { useNewUrlParser: true });
 
 
 app.use(bodyParser.urlencoded({ extended: true }));

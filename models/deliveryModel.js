@@ -5,12 +5,12 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var DeliverySchema = new Schema({
-    deliverer_id:{
+    delivererId:{
         type: String,
         trim: true,
         required: true
     },
-    deliverable_id: {
+    deliverableId: {
         type: String,
         trim: true,
         required: true

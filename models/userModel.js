@@ -18,7 +18,7 @@ var UserSchema = new Schema({
         unique: true,
         lowercase: true
     },
-    hash_password: {
+    hashPassword: {
         type: String,
         required: true
     },

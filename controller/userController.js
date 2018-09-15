@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
     bcrypt = require('bcrypt'),
+    constant = require('../constants'),
     User = mongoose.model('User');
 
 
@@ -38,6 +39,41 @@ function signIn(req, res) {
     });
 };
 
+function getProfile(req, res) {
+  try {
+      var user_id = req.body._id;
+      User.findOne({ _id: user_id }, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+          res.status(401).json({ message: 'User not found.' });
+        } else if (user) {
+          return res.json({user: user});
+        }
+    });
+  }
+  catch (err) {
+      return res.json({'error': 'sth went wrong' + user_id});
+  }
+}
+
+function getMyProfile(req, res) {
+    try {
+        var decoded = jwt.verify(req.headers.token, 'RESTFULAPIs');
+        var user_id = decoded._id;
+        User.findOne({ _id: user_id }, function(err, user) {
+          if (err) throw err;
+          if (!user) {
+            res.status(401).json({ message: 'Authentication failed. User not found.' });
+          } else if (user) {
+            return res.json({user: user});
+          }
+      });
+    }
+    catch (err) {
+        return res.json({'error': 'sth went wrong' + user_id});
+    }
+}
+
 function logInRequired(req, res, next) {
     if (req.user) {
         next();
@@ -49,5 +85,7 @@ function logInRequired(req, res, next) {
 module.exports = {
     register: register,
     signIn: signIn,
-    logInRequired: logInRequired
+    logInRequired: logInRequired,
+    getMyProfile: getMyProfile,
+    getProfile: getProfile
 }
