@@ -9,7 +9,7 @@ var express = require('express'),
   User = require('./models/userModel');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/testDB');
+mongoose.connect('mongodb://192.168.10.18/testDB');
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
