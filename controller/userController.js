@@ -9,14 +9,14 @@ var mongoose = require('mongoose'),
 
 function register(req, res) {
     var newUser = new User(req.body);
-    newUser.hash_password = bcrypt.hashSync(req.body.password, 10);
+    newUser.hashPassword = bcrypt.hashSync(req.body.password, 10);
     newUser.save(function(err, user) {
       if (err) {
         return res.status(400).send({
           message: err
         });
       } else {
-        user.hash_password = undefined;
+        user.hashPassword = undefined;
         return res.json(user);
       }
     });
@@ -58,7 +58,7 @@ function getProfile(req, res) {
 
 function getMyProfile(req, res) {
     try {
-        var decoded = jwt.verify(req.headers.token, 'RESTFULAPIs');
+        var decoded = jwt.verify(req.body.token, 'RESTFULAPIs');
         var user_id = decoded._id;
         User.findOne({ _id: user_id }, function(err, user) {
           if (err) throw err;
@@ -70,7 +70,7 @@ function getMyProfile(req, res) {
       });
     }
     catch (err) {
-        return res.json({'error': 'sth went wrong' + user_id});
+        return res.json({'error': 'sth went wrong' + req.body.token});
     }
 }
 

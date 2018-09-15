@@ -4,18 +4,18 @@ module.exports = function(app) {
     var userHandler = require('../controller/userController'),
         deliverableHandler = require('../controller/deliverableController');
 
-    app.route('/auth/register')
+    app.route('/auth/register')//
         .post(userHandler.register)
         
 
-    app.route('/auth/sign_in')
+    app.route('/auth/sign_in')//
         .post(userHandler.signIn)
 
-    app.route('/user')
-        .get(userHandler.getMyProfile)
+    app.route('/user')//
+        .post(userHandler.getMyProfile)
     
-    app.route('/user')
-        .get(userHandler.getProfile)
+    app.route('/user_id')//
+        .post(userHandler.getProfile)
 
     app.route('/to_pick')
         .get(deliverableHandler.toPick)
@@ -23,12 +23,21 @@ module.exports = function(app) {
     app.route('/to_deliver')
         .get(deliverableHandler.toDeliver)
 
-    app.route('/change_status')
-        .post(deliverableHandler.changeStatus)
-
-    app.route('/create/deliverable')
+    app.route('/create/deliverable')//
         .post(deliverableHandler.createDeliverable)
 
-    app.route('/search/deliverables')
-        .post(deliverableHandler.searchDeliverable)
+    app.route('/submit/request/delivery')
+        .get(deliverableHandler.submitDeliveryRequest) 
+        
+    app.route('/search/request/assigned_delivery')//
+        .get(deliverableHandler.searchAssignedDeliveryRequest)
+
+    app.route('/search/request/requested_delivery')//
+        .get(deliverableHandler.searchRequestedDeliveryRequest)
+
+    app.route('/search/new_delivery')
+        .post(deliverableHandler.searchNewDelivery)
+
+    app.route('/approve/post')//
+        .post(deliverableHandler.approvePost)
 };

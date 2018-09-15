@@ -6,31 +6,31 @@ var mongoose = require('mongoose'),
 
 
 var DeliverableSchema = new Schema({
-    pickupLocation:{
+    pickUpLocation:{
         type: String,
         trim: true,
         required: true
     },
-    deliveryLocation:{
+    dropOffLocation:{
         type: String,
         trim: true,
         required: true
     },
-    pickupCoordinate:{
-        type: String,
+    pickUpCoord:{
+        type: Object,
         trim: true,
         required: true
     },
-    deliveryCoordinate:{
-        type: String,
+    dropOffCoord:{
+        type: Object,
         trim: true,
         required: true
     },
-    pickupBefore: {
+    pickUpTime: {
         type: Date,
         default: Date.now
     },
-    deliverBefore: {
+    dropOffTime: {
         type: Date,
         default: Date.now
     },
@@ -44,23 +44,29 @@ var DeliverableSchema = new Schema({
         trim: true,
         required: false
     },
+    status: {
+        type: String,
+        trim: true,
+        lowercase: true,
+        default: "unassigned"
+    },
     weight: {
         type: Number,
         trim: true,
         required: false
     },
-    status: {
-        type: String,
-        trim: true,
-        lowercase: true
-    },
     senderId: {
         type: String,
-        required: true
+        required: true,
+        default: ""
     },
     delivererId: {
         type: String,
-        default: -1
+        default: ""
+    },
+    deliveryRequests: {
+        type: [Object],
+        default: []
     },
     created: {
         type: Date,
@@ -71,5 +77,10 @@ var DeliverableSchema = new Schema({
         default: Date.now
     }
 });
+
+DeliverableSchema.pre('save', function(next) {
+    this.lastUpdated = Date.now()
+    next()
+  });
 
 mongoose.model('Deliverable', DeliverableSchema);
