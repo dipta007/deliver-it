@@ -1,4 +1,4 @@
-'use trict';
+'use strict';
 
 var mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
@@ -22,7 +22,9 @@ function register(req, res) {
 };
 
 function signIn(req, res) {
+    console.log(req.body)
     User.findOne({ email: req.body.email }, function(err, user) {
+        console.log(user, jwt.sign({ email: user.email, fullName: user.fullName, _id: user._id}, 'RESTFULAPIs'))
         if (err) throw err;
         if (!user) {
           res.status(401).json({ message: 'Authentication failed. User not found.' });
